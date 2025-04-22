@@ -109,7 +109,7 @@ export const AddressList = () => {
   };
 
   if (users.length === 0) {
-    return <Typography align="center" mt={5}>No users yet.</Typography>;
+    return <Typography align="center" mt={5}> No users yet.</Typography>;
   }
 
   return (
@@ -231,16 +231,23 @@ export const AddressList = () => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
           {isEditMode ? (
+           <>
+
+          <Button onClick={handleClose}>Cancel</Button>
+
             <Button onClick={handleSave} variant="contained" color="primary">
               Save
             </Button>
-          ) : (
+           
+          </>
+          ) 
+          : (
             <Button onClick={handleClose} variant="contained" color="primary">
               Close
             </Button>
-          )}
+          )
+        }
         </DialogActions>
       </Dialog>
     </Container>

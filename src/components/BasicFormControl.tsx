@@ -52,14 +52,25 @@ export function BasicFormControl({ handleClose }: BasicFormControlProps) {
     setAddresses(newAddresses);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const newUser = { name, email, phone, addresses };
+  
+    const newUser = {
+      name,
+      email,
+      phone,
+      addresses,
+    };
+  
     const existingUsers = JSON.parse(localStorage.getItem('userList') || '[]');
-    existingUsers.push(newUser);
-    localStorage.setItem('userList', JSON.stringify(existingUsers));
-
+  
+    const updatedUsers = [...existingUsers, newUser];
+  
+    localStorage.setItem('userList', JSON.stringify(updatedUsers));
+  
+  
+  
     // Reset form
     setName('');
     setEmail('');
@@ -141,25 +152,29 @@ export function BasicFormControl({ handleClose }: BasicFormControlProps) {
 
               {index === addresses.length - 1 && addresses.length < 3 && (
                 <IconButton
-                  onClick={addAddress}
-                  aria-label="add address"
-                  sx={{
-                    color: 'white',
-                    marginRight: '12px',
-                    backgroundColor: blue[500],
-                    borderRadius: '50%',
-                    width: '36px',
-                    height: '36px',
-                    '&:hover': {
-                      backgroundColor: blue[600],
-                    },
-                    '&:active': {
-                      transform: 'scale(0.95)',
-                    },
-                  }}
-                >
-                  <AddCircleIcon sx={{ fontSize: 24 }} />
-                </IconButton>
+                onClick={addAddress}
+                aria-label="add address"
+                sx={{
+                  color: 'white',
+                  backgroundColor: blue[500],
+                  borderRadius: '20%',
+                  width: '36px',
+                  height: '36px',
+                  position: 'relative', // Needed to move with top or margin
+                  marginTop: '32px', // Moves the button downward
+                  marginLeft: 'auto', // Pushes the button to the right inside a flex container
+                  // display: 'block', // Works well with margin auto
+                  '&:hover': {
+                    backgroundColor: blue[600],
+                  },
+                  '&:active': {
+                    transform: 'scale(0.95)',
+                  },
+                }}
+              >
+                <AddCircleIcon sx={{ fontSize: 24 }} />
+              </IconButton>
+              
               )}
             </FormControl>
           ))}
